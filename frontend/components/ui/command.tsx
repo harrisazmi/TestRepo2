@@ -7,13 +7,19 @@ import Search from '@/icons/search';
 
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Input } from '../ui/input';
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive ref={ref} className={cn('', className)} {...props} />
+  <CommandPrimitive
+    ref={ref}
+    className={cn(
+      'bg-background text-foreground flex h-full w-full flex-col overflow-hidden rounded-md',
+      className,
+    )}
+    {...props}
+  />
 ));
 Command.displayName = CommandPrimitive.displayName;
 
@@ -35,21 +41,18 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
-  <div className="flex items-center relative p-2 rounded-[14px]">
-    <Input
+  <div className="flex items-center px-3" cmdk-input-wrapper="">
+    <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        'placeholder:text-dim-500 flex h-10 w-full bg-white-focuswhite100 py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50 pl-2 pr-10',
+        'placeholder:text-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50 pl-2',
         className,
       )}
       {...props}
     />
-    <Search
-      className="absolute right-2 flex items-center text-outline-400 mr-2"
-      height="16"
-      width="16"
-      strokeWidth={2.0}
-    />
+    <div className="rounded-full bg-gradient-to-b from-[#B379FF] to-[#702FF9] to-[60.94%] p-1">
+      <Search className="text-white" />
+    </div>
   </div>
 ));
 
@@ -88,7 +91,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      'text-foreground [&_[cmdk-group-heading]]:text-foreground overflow-hidden p-2 pt-0 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium',
+      'text-foreground [&_[cmdk-group-heading]]:text-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium',
       className,
     )}
     {...props}
@@ -116,7 +119,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      'data-[selected=true]:bg-washed-100 data-[selected=true]:text-foreground relative flex cursor-default select-none items-center px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 /// h-8  pl-3 rounded-[4px] font-normal',
+      'data-[selected=true]:bg-outline-200 data-[selected=true]:text-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
       className,
     )}
     {...props}
